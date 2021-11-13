@@ -1,5 +1,6 @@
 package com.example.addproduct
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,14 +8,16 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.example.addproduct.APILoader
+import com.github.kittinunf.fuel.Fuel
 
 
 class ProductActivity : AppCompatActivity() {
-    var barcodeText: TextView? = null
-    var materialText: EditText? = null
-    var productText: EditText? = null
-    var submitBtn: Button? = null
+    lateinit var barcodeText: TextView
+    lateinit var materialText: EditText
+    lateinit var productText: EditText
+    lateinit var submitBtn: Button
+
+    private val productAPI = "https://addproductappapi.herokuapp.com/api/product/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class ProductActivity : AppCompatActivity() {
         submitBtn = findViewById4 as Button
         val textView = barcodeText
         textView!!.text = intent.getStringExtra("Barcode")
+
         submitBtn!!.setOnClickListener {
             val product = productText!!.text.toString();
             val material = materialText!!.text.toString();
@@ -38,14 +42,24 @@ class ProductActivity : AppCompatActivity() {
             if(product.length > 1 || material.length > 1){
                 productText!!.isEnabled = false;
                 materialText!!.isEnabled = false;
-                APILoader.load(barcode,product,material);
+                val responseString = """{ "ProductID" : "${barcode}", "ProductName" : "${product}","Material" : "${material}"}"""
+                Fuel.post(productAPI).header(mapOf("Content-Type" to "application/json")).body(responseString).response{ request, response, result ->
+                    if(result.toString().indexOf("Success") > -1){
+                        Toast.makeText(this, "Product added successfully", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this,MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }else{
+                        Toast.makeText(this, "Please scan another product", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this,MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
             }else{
                 Toast.makeText(this, "Please enter all boxes before submitting", Toast.LENGTH_LONG).show()
                 submitBtn!!.isEnabled = true;
             }
-
-
         }
-
     }
 }

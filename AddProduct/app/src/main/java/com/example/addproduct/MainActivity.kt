@@ -19,7 +19,14 @@ class MainActivity : AppCompatActivity() {
         val findViewById: View = findViewById<View>(R.id.scanButton)
         val button = findViewById as Button
         scanBtn = button
-        button.setOnClickListener(`MainActivity$onCreate$1`(this))
+        button.setOnClickListener{
+            val intentegrator = IntentIntegrator(this)
+            intentegrator.setBeepEnabled(false)
+            intentegrator.setCameraId(0)
+            intentegrator.setPrompt("SCAN")
+            intentegrator.setBarcodeImageEnabled(false)
+            intentegrator.initiateScan()
+        }
     }
 
     /* access modifiers changed from: protected */
