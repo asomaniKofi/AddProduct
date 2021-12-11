@@ -1,0 +1,14 @@
+com/example/testfragments/BuildConfig.java
+ com.example.testfragments.BuildConfig
+com/example/testfragments/databinding/FragmentDashboardBinding.java
+ com.example.testfragments.databinding.FragmentDashboardBinding
+com/example/testfragments/databinding/FragmentNotificationsBinding.java
+ com.example.testfragments.databinding.FragmentNotificationsBinding
+com/example/testfragments/databinding/FragmentHomeBinding.java
+ com.example.testfragments.databinding.FragmentHomeBinding
+com/example/testfragments/databinding/ActivityMainBinding.java
+ com.example.testfragments.databinding.ActivityMainBinding
+com/example/testfragments/databinding/ActivityLocationBinding.java
+ com.example.testfragments.databinding.ActivityLocationBinding
+com/example/testfragments/databinding/ActivityScanBinding.java
+ com.example.testfragments.databinding.ActivityScanBinding
