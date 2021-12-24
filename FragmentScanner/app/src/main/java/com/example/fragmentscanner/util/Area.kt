@@ -36,7 +36,7 @@ class Area: Application() {
     fun save(preferences: SharedPreferences?){
         val editor = preferences?.edit()
         if(!Name.isNullOrBlank()){
-            editor?.putString("AreaName",Name)
+            editor?.putString("CouncilAreaName",Name)
             editor?.commit()
             editor?.apply()
         }
@@ -69,7 +69,7 @@ class Area: Application() {
     fun restore(preferences: SharedPreferences?){
         if(preferences !== null || (preferences !== null && !preferences.getString("AreaName","").isNullOrEmpty())){
             val parser = Klaxon()
-            Name = preferences.getString("AreaName","")
+            Name = preferences.getString("CouncilAreaName","")
             BinOne = preferences.getString("BinOne","")?.let { parser.parse<Bin>(it) }
             BinTwo = preferences.getString("BinTwo","")?.let { parser.parse<Bin>(it) }
             BinThree = preferences.getString("BinThree","")?.let { parser.parse<Bin>(it) }

@@ -8,12 +8,75 @@
     tools:context=".ui.fragments.LocationFragment">
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="191dp"
-        android:layout_height="108dp"
-        android:text="LocationFragment text"
+        android:id="@+id/locationHeader"
+        android:layout_width="338dp"
+        android:layout_height="78dp"
+        android:gravity="center"
+        android:text="Current Location"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <TextView
+        android:id="@+id/areaHeader"
+        android:layout_width="362dp"
+        android:layout_height="84dp"
+        android:gravity="center"
+        android:text="Current Area"
+        android:textAlignment="center"
+        android:textSize="48sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.527" />
+
+    <TextView
+        android:id="@+id/savedLocationText"
+        android:layout_width="318dp"
+        android:layout_height="82dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.213" />
+
+    <TextView
+        android:id="@+id/savedAreaText"
+        android:layout_width="362dp"
+        android:layout_height="84dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.695" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="313dp"
+        android:layout_height="94dp"
+        android:text="Set Location"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.364" />
 </androidx.constraintlayout.widget.ConstraintLayout>

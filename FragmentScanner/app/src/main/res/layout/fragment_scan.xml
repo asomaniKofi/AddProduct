@@ -7,15 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.ScanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="273dp"
-        android:layout_height="160dp"
-        android:text="Scan Fragment"
+    <Button
+        android:id="@+id/barcodeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scan Barcode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/loadingScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Getting Resutlts........."
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.201" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

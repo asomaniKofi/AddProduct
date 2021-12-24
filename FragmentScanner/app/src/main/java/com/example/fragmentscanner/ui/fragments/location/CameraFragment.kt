@@ -1,4 +1,4 @@
-package com.example.fragmentscanner.ui.fragments
+package com.example.fragmentscanner.ui.fragments.location
 
 import android.content.Context
 import android.content.Intent
@@ -12,24 +12,25 @@ import android.widget.TextView
 import android.widget.Toast
 import com.beust.klaxon.Klaxon
 import com.example.fragmentscanner.R
-import com.example.fragmentscanner.ui.fragments.location.ResultFragment
 import com.example.fragmentscanner.util.Area
 import com.example.fragmentscanner.util.Links
 import com.example.fragmentscanner.util.Product
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
 import com.google.zxing.integration.android.IntentIntegrator
+import javax.xml.transform.Result
 
+// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ScanFragment.newInstance] factory method to
+ * Use the [CameraFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ScanFragment : Fragment() {
+class CameraFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var scan: Button
@@ -41,21 +42,14 @@ class ScanFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scan, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         scan = view?.findViewById(R.id.barcodeBtn)
         textView = view?.findViewById(R.id.loadingScan)
         scan.setOnClickListener {
-            val integrator = IntentIntegrator.forSupportFragment(this@ScanFragment)
+            val integrator = IntentIntegrator.forSupportFragment(this@CameraFragment)
             integrator.setBeepEnabled(false)
             integrator.setCameraId(0)
             integrator.setPrompt("SCAN BARCODE")
@@ -82,19 +76,16 @@ class ScanFragment : Fragment() {
                 try{
                     val parser = Klaxon()
                     val product = parser.parse<Product>(result.get().obj().toString())
-                    if(product?.Material.isNullOrBlank()){
+                    if(product?.Material?.isNotEmpty() == true){
+                        val binResult = selectedArea.getResults(product.Material)
+                        createFragment(binResult,product.ProductName!!)
+                    }else{
                         Toast.makeText(context, "Packaging Information not available, Please try another product", Toast.LENGTH_LONG).show()
                         textView.visibility = View.INVISIBLE
                         scan.isEnabled = true
-                    }else{
-                        val binResult = product?.Material?.let { selectedArea.getResults(it) }
-                        if (binResult != null) {
-                            createFragment(binResult,product?.ProductName!!)
-                        }
-
                     }
                 }catch(e:Exception){
-                    Toast.makeText(context, "Somethings gone wrong, Please try another product", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Packaging Information not available, Please try another product", Toast.LENGTH_LONG).show()
                     textView.visibility = View.INVISIBLE
                     scan.isEnabled = true
                 }
@@ -113,6 +104,13 @@ class ScanFragment : Fragment() {
         activity?.fragmentManager?.popBackStack();
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_camera, container, false)
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -120,12 +118,12 @@ class ScanFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ScanFragment.
+         * @return A new instance of fragment CameraFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ScanFragment().apply {
+            CameraFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

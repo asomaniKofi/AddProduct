@@ -6,7 +6,7 @@ class Links {
         private val areaAPI = "https://locationareaapi.herokuapp.com/api/locations/areas/?area=mockArea"
         private var productAPI = "https://addproductappapi.herokuapp.com/api/product/?barcode=fakebarcode"
         private val locationAPI = "https://locationareaapi.herokuapp.com/api/locations/?location=mockLocation"
-        fun getLink(key:String,value:String):String{
+        fun getLink(key:String, value:String):String{
             var result = ""
             when(key){
                 "Area" -> {

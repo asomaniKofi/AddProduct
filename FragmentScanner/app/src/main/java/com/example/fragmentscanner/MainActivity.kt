@@ -25,14 +25,7 @@ class MainActivity : FragmentActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_location, R.id.navigation_scan, R.id.navigation_bin,
-//                R.id.navigation_collections
-//
-//            )
-//        )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
     }
 }

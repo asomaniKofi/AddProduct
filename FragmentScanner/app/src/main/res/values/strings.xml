@@ -7,4 +7,6 @@
     <string name="title_scan">Scan</string>
     <string name="title_view">View Bins</string>
     <string name="title_calendar">View Collections</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
