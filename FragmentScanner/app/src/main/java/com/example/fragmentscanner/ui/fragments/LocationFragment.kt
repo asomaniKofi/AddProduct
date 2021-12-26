@@ -16,9 +16,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [LocationFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * App Homepage
  */
 class LocationFragment : Fragment() {
     private var param1: String? = null
@@ -40,10 +38,10 @@ class LocationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        locationText = view?.findViewById(R.id.savedLocationText)!!
-        areaText = view?.findViewById(R.id.savedAreaText)!!
-        locationBtn = view?.findViewById(R.id.locationButton)!!
-        areaHeader = view?.findViewById(R.id.areaHeader)!!
+        locationText = view.findViewById(R.id.savedLocationText)!!
+        areaText = view.findViewById(R.id.savedAreaText)!!
+        locationBtn = view.findViewById(R.id.locationButton)!!
+        areaHeader = view.findViewById(R.id.areaHeader)!!
         locationBtn.setOnClickListener {
             val newFrag = NewLocationFragment()
             parentFragmentManager.beginTransaction().replace(this.id,newFrag).commit()

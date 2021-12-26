@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.beust.klaxon.Klaxon
 import com.example.fragmentscanner.R
+import com.example.fragmentscanner.ui.fragments.scan.ResultFragment
 import com.example.fragmentscanner.util.Area
 import com.example.fragmentscanner.util.Links
 import com.example.fragmentscanner.util.Product
@@ -20,7 +21,6 @@ import com.github.kittinunf.fuel.android.extension.responseJson
 import com.google.zxing.integration.android.IntentIntegrator
 import javax.xml.transform.Result
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -46,8 +46,8 @@ class CameraFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        scan = view?.findViewById(R.id.barcodeBtn)
-        textView = view?.findViewById(R.id.loadingScan)
+        scan = view.findViewById(R.id.barcodeBtn)
+        textView = view.findViewById(R.id.loadingScan)
         scan.setOnClickListener {
             val integrator = IntentIntegrator.forSupportFragment(this@CameraFragment)
             integrator.setBeepEnabled(false)
@@ -72,7 +72,7 @@ class CameraFragment : Fragment() {
 
     private fun requestProduct(barcode: String){
         if(barcode.isNotBlank()){
-            Fuel.get(Links.getLink("Product",barcode)).responseJson { request, response, result ->
+            Fuel.get(Links.getLink("Product",barcode)).responseJson { _, _, result ->
                 try{
                     val parser = Klaxon()
                     val product = parser.parse<Product>(result.get().obj().toString())
@@ -120,7 +120,6 @@ class CameraFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment CameraFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             CameraFragment().apply {

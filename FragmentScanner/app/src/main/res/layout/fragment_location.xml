@@ -40,11 +40,11 @@
 
     <TextView
         android:id="@+id/savedLocationText"
-        android:layout_width="318dp"
-        android:layout_height="82dp"
+        android:layout_width="349dp"
+        android:layout_height="81dp"
         android:gravity="center"
         android:textAlignment="center"
-        android:textSize="34sp"
+        android:textSize="30sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

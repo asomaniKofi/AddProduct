@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_collections"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@android:drawable/ic_menu_my_calendar"
         android:title="@string/title_calendar" />
 
 </menu>

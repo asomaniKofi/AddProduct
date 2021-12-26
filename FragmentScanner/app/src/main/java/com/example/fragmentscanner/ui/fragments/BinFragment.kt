@@ -1,11 +1,17 @@
 package com.example.fragmentscanner.ui.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import com.example.fragmentscanner.R
+import com.example.fragmentscanner.ui.fragments.bins.SelectedBinFragment
+import com.example.fragmentscanner.util.Area
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -17,9 +23,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class BinFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var areas: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +35,34 @@ class BinFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bin, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        areas = view.findViewById(R.id.binListView)
+        val selectedArea = Area()
+        selectedArea.restore(activity?.getSharedPreferences("App_Preferences", Context.MODE_PRIVATE))
+        val arrayAdapter = ArrayAdapter<String>(requireContext(),android.R.layout.simple_list_item_1,selectedArea.getIDs())
+
+        areas.adapter = arrayAdapter
+        areas.setOnItemClickListener { _, _, position, _ ->
+            val selectedBin = selectedArea.getBin(position)
+            val binFragment = SelectedBinFragment()
+            val data = Bundle()
+            data.putString("BinName",selectedBin.BinName)
+            data.putString("BinType",selectedBin.BinType)
+            data.putString("BinDescription",selectedBin.BinDescription)
+            selectedBin.BinOccurence?.let { data.putInt("BinOccurrence", it) }
+            data.putString("BinNextDate",selectedBin.BinNextDate)
+            data.putString("BinWeekStart",selectedBin.BinCollectionWeekStart)
+            data.putString("BinWeekEnd",selectedBin.BinCollectionWeekEnd)
+            binFragment.arguments = data
+            parentFragmentManager.beginTransaction().replace(this.id,binFragment).commit()
+            activity?.fragmentManager?.popBackStack();
+        }
+        areas.visibility = View.VISIBLE
     }
 
     companion object {
@@ -46,7 +74,6 @@ class BinFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment BinFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             BinFragment().apply {

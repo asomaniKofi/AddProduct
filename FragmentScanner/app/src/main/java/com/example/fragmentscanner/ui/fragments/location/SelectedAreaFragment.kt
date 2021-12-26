@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.beust.klaxon.Klaxon
 import com.example.fragmentscanner.R
+import com.example.fragmentscanner.ui.fragments.LocationFragment
 import com.example.fragmentscanner.util.Area
 import com.example.fragmentscanner.util.Links
 import com.github.kittinunf.fuel.Fuel
@@ -41,22 +42,19 @@ class SelectedAreaFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_selected_area, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        areaText = view?.findViewById(R.id.areaText)
+        areaText = view.findViewById(R.id.areaText)
         areaText.text = arguments?.getString("AreaName")
-        confirmBtn = view?.findViewById(R.id.confirmbtn)
-        loadingTxt = view?.findViewById(R.id.loadingAreaText)
+        confirmBtn = view.findViewById(R.id.confirmbtn)
+        loadingTxt = view.findViewById(R.id.loadingAreaText)
 
         confirmBtn.setOnClickListener {
-            Fuel.get(Links.getLink("Area",areaText.text.toString())).responseJson { request, response, result ->
+            Fuel.get(Links.getLink("Area",areaText.text.toString())).responseJson { _, _, result ->
                 try{
                     confirmBtn.isEnabled = false
                     loadingTxt.visibility = View.VISIBLE
@@ -67,9 +65,9 @@ class SelectedAreaFragment : Fragment() {
                     editor?.commit()
                     editor?.apply()
                     Toast.makeText(context, "Area Saved", Toast.LENGTH_LONG).show()
-//                    val intent = Intent(this,MainActivity::class.java)
-//                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP;
-//                    startActivity(intent)
+                    val home = LocationFragment()
+                    parentFragmentManager.beginTransaction().replace(this.id,home).commit()
+                    activity?.fragmentManager?.popBackStack();
                 }catch(e:Exception){
                     Toast.makeText(context, "Somethings Gone wrong", Toast.LENGTH_LONG).show()
                     e.printStackTrace()
@@ -87,7 +85,6 @@ class SelectedAreaFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment SelectedAreaFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             SelectedAreaFragment().apply {

@@ -29,12 +29,12 @@ class Bin: Serializable {
     fun save(id:String?, appPreferences: SharedPreferences?){
         if(appPreferences !== null){
             Id = id
-            val editor = appPreferences?.edit()
+            val editor = appPreferences.edit()
             val gson = Gson()
             val data = gson.toJson(this)
-            editor?.putString(Id,data)
-            editor?.commit()
-            editor?.apply()
+            editor.putString(Id,data)
+            editor.commit()
+            editor.apply()
         }
     }
 

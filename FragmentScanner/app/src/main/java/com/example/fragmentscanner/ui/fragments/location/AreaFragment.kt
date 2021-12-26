@@ -17,9 +17,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [AreaFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Page which will display all the areas within a council
  */
 class AreaFragment : Fragment() {
     private var param1: String? = null
@@ -35,16 +33,13 @@ class AreaFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_area, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        areaList = view?.findViewById(R.id.binListView)
+        areaList = view.findViewById(R.id.binListView)
         council = Council()
         council!!.restore(activity?.getSharedPreferences("App_Preferences", AppCompatActivity.MODE_PRIVATE))
         var areaArray = arrayOf<String>()
@@ -67,7 +62,7 @@ class AreaFragment : Fragment() {
         params.height = totalHeight + (areaList.dividerHeight * (arrayAdapter.count -1))
         areaList.layoutParams = params
         areaList.requestLayout()
-        areaList.setOnItemClickListener { parent, view, position, id ->
+        areaList.setOnItemClickListener { _, _, position, _ ->
             val selectedFrag = SelectedAreaFragment()
             val data = Bundle()
             data.putString("AreaName",council?.Areas!![position])

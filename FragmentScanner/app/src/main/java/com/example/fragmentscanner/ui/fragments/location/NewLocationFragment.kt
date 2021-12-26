@@ -25,15 +25,12 @@ import com.github.kittinunf.fuel.android.extension.responseJson
 import com.google.android.gms.location.*
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [NewLocationFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Page where we use geocoder to get a council via user location
  */
 class NewLocationFragment : Fragment() {
     private var param1: String? = null
@@ -66,10 +63,7 @@ class NewLocationFragment : Fragment() {
         startUpdate()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new_location, container, false)
     }
@@ -77,11 +71,11 @@ class NewLocationFragment : Fragment() {
     private fun getAddress(location: Location?){
         val coder = Geocoder(context, Locale.getDefault())
         try{
-            val address = location?.latitude?.let { coder.getFromLocation(it, location?.longitude, 1) }
+            val address = location?.latitude?.let { coder.getFromLocation(it, location.longitude, 1) }
             val editor = activity?.getSharedPreferences("App_Preferences",Context.MODE_PRIVATE)?.edit()?.putString("Location",address?.get(0)?.locality.toString())
             editor?.commit()
             editor?.apply()
-            val council = address?.get(0)?.locality.toString().toLowerCase()
+            val council = address?.get(0)?.locality.toString().lowercase()
             getCouncilInformation(council)
         }catch (e: Exception){
             e.printStackTrace()
@@ -120,7 +114,7 @@ class NewLocationFragment : Fragment() {
 
     private fun load(council: String?){
         if(!council.isNullOrEmpty()){
-            Fuel.get(Links.getLink("Location",council!!)).responseJson { request, response, result ->
+            Fuel.get(Links.getLink("Location",council)).responseJson { _, _, result ->
                 try{
                     val councilParser = Klaxon()
                     selectedCouncil = councilParser.parse<Council>(result.get().obj().toString())

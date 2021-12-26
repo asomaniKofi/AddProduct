@@ -27,5 +27,5 @@
         android:id="@+id/navigation_collections"
         android:name="com.example.fragmentscanner.ui.fragments.ColletionsFragment"
         android:label="@string/title_calendar"
-        tools:layout="@layout/fragment_colletions" />
+        tools:layout="@layout/fragment_collections" />
 </navigation>

@@ -7,16 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.ColletionsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/dateHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Collection Fragment"
+        android:text="Please select Bin"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.047" />
+
+    <ListView
+        android:id="@+id/binDateList"
+        android:layout_width="318dp"
+        android:layout_height="448dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.612"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.908" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

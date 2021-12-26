@@ -1,6 +1,5 @@
-package com.example.fragmentscanner.ui.fragments.location
+package com.example.fragmentscanner.ui.fragments.scan
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,15 +11,12 @@ import com.example.fragmentscanner.R
 import com.example.fragmentscanner.ui.fragments.LocationFragment
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ResultFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Page which will display Product information and what bin it should go in
  */
 class ResultFragment(enabled: Boolean) : Fragment() {
     private var param1: String? = null
@@ -42,9 +38,9 @@ class ResultFragment(enabled: Boolean) : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Name = view?.findViewById(R.id.productName)
-        Packaging = view?.findViewById(R.id.productPackaging)
-        Bin = view?.findViewById(R.id.productBin)
+        Name = view.findViewById(R.id.productName)
+        Packaging = view.findViewById(R.id.productPackaging)
+        Bin = view.findViewById(R.id.productBin)
         Name.text =  arguments?.getString("ProductName")
         Packaging.text = arguments?.getString("PackagingType")?.capitalize(Locale.UK)
         Bin.text =  arguments?.getString("BinType")

@@ -12,7 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.beust.klaxon.Klaxon
 import com.example.fragmentscanner.R
-import com.example.fragmentscanner.ui.fragments.location.ResultFragment
+import com.example.fragmentscanner.ui.fragments.scan.ResultFragment
 import com.example.fragmentscanner.util.Area
 import com.example.fragmentscanner.util.Links
 import com.example.fragmentscanner.util.Product
@@ -25,9 +25,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ScanFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Page where we scan products
  */
 class ScanFragment : Fragment() {
     private var param1: String? = null
@@ -43,17 +41,14 @@ class ScanFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_scan, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        scan = view?.findViewById(R.id.barcodeBtn)
-        textView = view?.findViewById(R.id.loadingScan)
+        scan = view.findViewById(R.id.barcodeBtn)
+        textView = view.findViewById(R.id.loadingScan)
         scan.setOnClickListener {
             val integrator = IntentIntegrator.forSupportFragment(this@ScanFragment)
             integrator.setBeepEnabled(false)
@@ -78,7 +73,7 @@ class ScanFragment : Fragment() {
 
     private fun requestProduct(barcode: String){
         if(barcode.isNotBlank()){
-            Fuel.get(Links.getLink("Product",barcode)).responseJson { request, response, result ->
+            Fuel.get(Links.getLink("Product",barcode)).responseJson { _, _, result ->
                 try{
                     val parser = Klaxon()
                     val product = parser.parse<Product>(result.get().obj().toString())
@@ -89,9 +84,8 @@ class ScanFragment : Fragment() {
                     }else{
                         val binResult = product?.Material?.let { selectedArea.getResults(it) }
                         if (binResult != null) {
-                            createFragment(binResult,product?.ProductName!!)
+                            createFragment(binResult,product.ProductName!!)
                         }
-
                     }
                 }catch(e:Exception){
                     Toast.makeText(context, "Somethings gone wrong, Please try another product", Toast.LENGTH_LONG).show()
@@ -122,7 +116,6 @@ class ScanFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment ScanFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ScanFragment().apply {

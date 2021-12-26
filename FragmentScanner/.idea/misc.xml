@@ -16,6 +16,7 @@
         <entry key="..\:/Users/Cyril/AndroidStudioProjects/FragmentScanner/app/src/main/res/layout/fragment_result.xml" value="0.146875" />
         <entry key="..\:/Users/Cyril/AndroidStudioProjects/FragmentScanner/app/src/main/res/layout/fragment_scan.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Cyril/AndroidStudioProjects/FragmentScanner/app/src/main/res/layout/fragment_selected_area.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/Cyril/AndroidStudioProjects/FragmentScanner/app/src/main/res/layout/fragment_selected_bin.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/Cyril/AndroidStudioProjects/FragmentScanner/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21822916666666667" />
       </map>
     </option>
@@ -25,5 +26,8 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressKotlinCodeStyleNotification">
+    <option name="disableForAll" value="true" />
   </component>
 </project>
